@@ -81,7 +81,7 @@ In `p1/artifacts/report.md`, repeat the block below for each bug:
 
 You may add extra notes or links, but keep the format consistent so the grader can check your fixes quickly.
 
-## Vulnerable Console: Project 2 
+## Problem 2: Vulnerable Console 
 
 This module provides a UI wrapper over legacy PHP code intended for hands‑on vulnerability discovery. Although modern styling hides it, the backend still trusts unvalidated input and leaks sensitive data. Your objective is to examine the code and interface, identify security flaws, and document each exploit clearly and concisely.
 
