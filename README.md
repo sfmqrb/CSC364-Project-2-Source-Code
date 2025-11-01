@@ -1,6 +1,6 @@
 _The AstraNav probe is set to launch to chart methane plumes on Titan, but its core software stack is a relic: a 25‑year‑old C/C++ navigation binary bolted to a PHP/SQLite “mission console” hastily built during a funding sprint. A single crash or forged packet mid‑flight could waste fuel or disable critical systems, so Command assigns you to harden both layers in the narrow window before rollout._
 
-_First, you tackle the flight binary. Using coverage‑guided fuzzing, you provoke crashes, capture minimal reproducible inputs, and patch at least six memory issues.
+_First, you tackle the flight binary. Using coverage‑guided fuzzing, you provoke crashes, capture minimal reproducible inputs, and patch at least six memory issues._
 
 _Next, you audit the PHP console used by ground crew to upload maneuvers and read telemetry. You document five distinct exploits showing how each could misalign antennas or leak scientific data, then propose precise fixes._
 
@@ -85,19 +85,22 @@ You may add extra notes or links, but keep the format consistent so the grader c
 
 This module provides a UI wrapper over legacy PHP code intended for hands‑on vulnerability discovery. Although modern styling hides it, the backend still trusts unvalidated input and leaks sensitive data. Your objective is to examine the code and interface, identify security flaws, and document each exploit clearly and concisely.
 
-## Objectives
+### Objectives
 
-- Identify **five distinct vulnerabilities**.
-- Provide a proof‑of‑concept for each (screenshots or request logs allowed).
+- Identify **five distinct vulnerabilities** (not necessarily from different categories, but occurring in different parts of the code).
+- Provide a proof that you've exploited each one of the vulnerabilities (screenshots or request logs allowed).
 - Explain the root cause and propose practical mitigation steps.
+- Implement a solution patch to resolve the vulnerabilities.
 
-## Provided
+### Docker 
 
-- PHP source and SQLite seed (`init.sql`)
-- Docker image for deployment
-- Shared UI helpers in `utils.php`
+This part is containerized using Docker. Docker is a platform that lets you package applications into lightweight, portable containers so they run the same way on any system.
 
-## Run
+To work with the code and use Docker, the simplest option is to work on Linux, where Docker is fully supported and easy to set up. If you are not already on Linux, consider running Ubuntu (a common distribution of Linux) inside a virtual machine. Docker is also available on Windows through WSL and on macOS through Docker Desktop.
+
+To install docker check out `https://docs.docker.com/engine/install/`
+
+### Run
 
 ```bash
 cd p2
@@ -105,7 +108,6 @@ docker build -t vuln-app .
 docker run -d -p 9090:80 vuln-app
 ```
 
-To install docker check out `https://docs.docker.com/engine/install/`
 
 Visit `http://localhost:9090/` and try to exploit it.
 
@@ -116,16 +118,16 @@ docker ps
 docker exec -it <id> bash
 ```
 
-## Submission Structure
+### Submission Structure
 
 ```
 p2/artifacts/
   exploits/
     vulN/
       fixed.patch # patched codebase (only the differences)
-      report.md
+      report.md   # or .pdf
       evidence/
-        vuln.png # screenshot
+        vuln.png  # screenshot
 ```
 
 Each `report.md` file:
